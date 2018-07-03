@@ -1,0 +1,9 @@
+*.py[cod]
+
+# Private settings
+mbed_settings.py
+
+# Default Build Directory
+.build/
+BUILD/
+.mbed
