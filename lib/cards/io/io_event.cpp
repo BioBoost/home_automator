@@ -18,6 +18,14 @@ namespace BiosHomeAutomator {
 
   IOEvent::~IOEvent(void) { }
 
+  uint64_t IOEvent::get_time(void) {
+    return timeSinceBoot;
+  }
+
+  IOEvent::Edge IOEvent::get_edge(void) {
+    return edge;
+  }
+
   std::string IOEvent::to_string(void) {
     std::string result = "IOEvent: " + edge_to_string(edge) + " edge";
     result += " @" + std::to_string(timeSinceBoot) + "ms since boot";

@@ -20,6 +20,10 @@ namespace BiosHomeAutomator {
       virtual ~IOEvent(void);
 
     public:
+      uint64_t get_time(void);
+      Edge get_edge(void);
+
+    public:
       std::string to_string(void);
 
     private:
