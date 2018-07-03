@@ -6,6 +6,7 @@ namespace BiosHomeAutomator {
     this->parent = parent;
     this->id = id;
     this->state = state;
+    hasChanged = false;
   }
 
   ExpansionCard * Input::get_parent(void) {
@@ -16,11 +17,17 @@ namespace BiosHomeAutomator {
     return id;
   }
 
+  bool Input::has_changed(void) {
+    return hasChanged;
+  }
+
   void Input::set_state(State newState) {
     if (state == newState) {
+      hasChanged = false;
       return;
     }
 
+    hasChanged = true;
     IOEvent event(determine_edge(state, newState));
     pastEvents.add(event);
     state = newState;

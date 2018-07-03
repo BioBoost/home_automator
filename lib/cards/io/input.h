@@ -16,6 +16,7 @@ namespace BiosHomeAutomator {
     public:
       ExpansionCard * get_parent(void);
       unsigned int get_id(void);
+      bool has_changed(void);
 
     public:
       void set_state(State newState);
@@ -32,6 +33,7 @@ namespace BiosHomeAutomator {
       unsigned int id;
       State state;
       IOEventList pastEvents;
+      bool hasChanged;
   };
 
 };
