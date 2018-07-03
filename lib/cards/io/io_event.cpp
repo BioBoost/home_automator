@@ -19,9 +19,18 @@ namespace BiosHomeAutomator {
   IOEvent::~IOEvent(void) { }
 
   std::string IOEvent::to_string(void) {
-    std::string result = "IOEvent: " + std::string(edge == RISING ? "RISING" : "FALLING") + " edge";
+    std::string result = "IOEvent: " + edge_to_string(edge) + " edge";
     result += " @" + std::to_string(timeSinceBoot) + "ms since boot";
     return result;
+  }
+
+  std::string IOEvent::edge_to_string(Edge edge) {
+    if (edge == RISING) {
+      return "RISING";
+    } else if (edge == FALLING) {
+      return "FALLING";
+    }
+    return "NONE";
   }
 
 };

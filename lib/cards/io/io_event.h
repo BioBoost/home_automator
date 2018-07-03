@@ -23,6 +23,9 @@ namespace BiosHomeAutomator {
       std::string to_string(void);
 
     private:
+      std::string edge_to_string(Edge edge);
+
+    private:
       Edge edge;
       uint64_t timeSinceBoot;
 
