@@ -2,6 +2,8 @@
 
 #include "expansion_card.h"
 #include "pcf8575.h"
+#include "input.h"
+#include <vector>
 
 namespace BiosHomeAutomator {
 
@@ -16,6 +18,12 @@ namespace BiosHomeAutomator {
       void deactivate_relay(unsigned int relay);
       void toggle_relay(unsigned int relay);
       void all_relays_off(void);
+      std::vector<Input*> get_changed_inputs(void);
+
+    private:
+      void initialize_inputs(void);
+      void update_inputs(void);
+      Input::State determine_input_state(unsigned int portState, unsigned int inputId);
 
     private:
       void update_outputs(void);
@@ -28,7 +36,7 @@ namespace BiosHomeAutomator {
     private:
       IOExpansion::PCF8575 ioExpander;
       unsigned int outputData;
-
+      std::vector<Input*> inputs;
   };
 
 };

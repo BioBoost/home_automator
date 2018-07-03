@@ -7,9 +7,32 @@ namespace BiosHomeAutomator {
 
     ioExpander.set_port_direction(EXPANDER_PORT_MASK);
     all_relays_off();
+
+    initialize_inputs();
   }
 
-  IORelayCard::~IORelayCard(void) { }
+  void IORelayCard::initialize_inputs(void) {
+    unsigned int data = ioExpander.read();
+    for (unsigned int i = 0; i < NUMBER_OF_INPUTS; i++) {
+      Input * input = new Input(this, i, determine_input_state(data, i));
+      inputs.push_back(input);
+    }
+  }
+
+  Input::State IORelayCard::determine_input_state(unsigned int portState, unsigned int inputId) {
+    if ((portState & (0x0001 << inputId)) != 0) {
+      return Input::HIGH;
+    } else {
+      return Input::LOW;
+    }
+  }
+
+  IORelayCard::~IORelayCard(void) {
+    for (unsigned int i = 0; i < inputs.size(); i++) {
+      delete inputs[i];
+    }
+    inputs.clear();
+  }
 
   void IORelayCard::activate_relay(unsigned int relay) {
     if (relay < NUMBER_OF_RELAYS) {
@@ -42,6 +65,24 @@ namespace BiosHomeAutomator {
 
   void IORelayCard::update_outputs(void) {
     ioExpander.write(outputData);
+  }
+
+  void IORelayCard::update_inputs(void) {
+    unsigned int data = ioExpander.read();
+    for (unsigned int i = 0; i < NUMBER_OF_INPUTS; i++) {
+      inputs[i]->set_state(determine_input_state(data, inputs[i]->get_id()));
+    }
+  }
+
+  std::vector<Input*> IORelayCard::get_changed_inputs(void) {
+    update_inputs();
+    std::vector<Input*> changed;
+    for (unsigned int i = 0; i < NUMBER_OF_INPUTS; i++) {
+      if (inputs[i]->has_changed()) {
+        changed.push_back(inputs[i]);
+      }
+    }
+    return changed;
   }
 
 };
