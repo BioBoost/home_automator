@@ -3,13 +3,16 @@
 
 namespace BiosHomeAutomator {
 
-  IOEvent::IOEvent(Edge edge) {
-    this->edge = edge;
-    timeSinceBoot = BootTimer.millis_since_boot();
+  IOEvent::IOEvent(void)
+    : IOEvent(NONE) {
   }
 
-  IOEvent::IOEvent(Edge edge, uint64_t timeSinceBoot)
-    : IOEvent(edge) {
+  IOEvent::IOEvent(Edge edge)
+    : IOEvent(edge, BootTimer.millis_since_boot()) {
+  }
+
+  IOEvent::IOEvent(Edge edge, uint64_t timeSinceBoot) {
+    this->edge = edge;
     this->timeSinceBoot = timeSinceBoot;
   }
 

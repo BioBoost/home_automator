@@ -10,10 +10,11 @@ namespace BiosHomeAutomator {
     public:
 
       enum Edge {
-        RISING, FALLING
+        NONE, RISING, FALLING
       };
 
     public:
+      IOEvent(void);
       IOEvent(Edge edge);
       IOEvent(Edge edge, uint64_t timeSinceBoot);
       virtual ~IOEvent(void);
