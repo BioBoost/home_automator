@@ -9,4 +9,12 @@ namespace BiosHomeAutomator {
     pastEvents[0] = event;
   }
 
+  uint64_t IOEventList::get_time_between_last_events(void) {
+    return (pastEvents[0].get_time() - pastEvents[1].get_time());
+  }
+
+  IOEvent IOEventList::get_last_event(void) {
+    return pastEvents[0];
+  }
+
 };
