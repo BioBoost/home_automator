@@ -28,7 +28,7 @@ namespace BiosHomeAutomator {
 
   std::string IOEvent::to_string(void) {
     std::string result = "IOEvent: " + edge_to_string(edge) + " edge";
-    result += " @" + std::to_string(timeSinceBoot) + "ms since boot";
+    result += " @" + std::to_string(timeSinceBoot) + "ms";
     return result;
   }
 

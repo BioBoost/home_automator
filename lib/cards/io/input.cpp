@@ -49,7 +49,7 @@ namespace BiosHomeAutomator {
 
   std::string Input::to_string(void) {
     std::string result = "Input " + std::to_string(id) + " is " + std::string(state == LOW ? "LOW" : "HIGH");
-    result += " - " + pastEvents.get_last_event().to_string();
+    result += " - " + pastEvents.get_last_event().to_string() + " (" + std::to_string(pastEvents.get_time_between_last_events()) + "ms from previous)";
     return result;
   }
 
