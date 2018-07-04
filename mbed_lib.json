@@ -1,3 +1,11 @@
 {
-    "name": "home_automator"
+    "name": "home_automator",
+    "config": {
+        "io_interrupt_pin": {
+            "help": "The pin of the IO Expander interrupt",
+            "macro_name": "IO_INTERRUPT_PIN",
+            "required": true,
+            "value": "PTC0"
+        }
+    }
 }

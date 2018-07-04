@@ -9,7 +9,7 @@
 namespace BiosHomeAutomator {
 
   HomeAutomator::HomeAutomator(I2C * i2c)
-    : interrupt(PTC0), queue(QUEUE_SIZE * EVENTS_EVENT_SIZE) {
+    : interrupt(IO_INTERRUPT_PIN), queue(QUEUE_SIZE * EVENTS_EVENT_SIZE) {
 #ifdef DO_SIMPLE_LOG
     Log.info("Initializing HomeAutomator");
 #endif
