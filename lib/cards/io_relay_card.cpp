@@ -5,9 +5,18 @@ namespace BiosHomeAutomator {
   IORelayCard::IORelayCard(unsigned int ioExpanderI2cAddress, I2C * i2c, PinName ioInterrupt, unsigned int id)
     : ExpansionCard(id), ioExpander(ioExpanderI2cAddress, i2c, ioInterrupt) {
 
+    initialize_hardware();
+  }
+
+  IORelayCard::IORelayCard(unsigned int ioExpanderI2cAddress, I2C * i2c, unsigned int id)
+    : ExpansionCard(id), ioExpander(ioExpanderI2cAddress, i2c) {
+
+    initialize_hardware();
+  }
+
+  void IORelayCard::initialize_hardware(void) {
     ioExpander.set_port_direction(EXPANDER_PORT_MASK);
     all_relays_off();
-
     initialize_inputs();
   }
 

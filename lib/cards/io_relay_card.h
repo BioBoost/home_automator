@@ -11,6 +11,7 @@ namespace BiosHomeAutomator {
 
     public:
       IORelayCard(unsigned int ioExpanderI2cAddress, I2C * i2c, PinName ioInterrupt, unsigned int id);
+      IORelayCard(unsigned int ioExpanderI2cAddress, I2C * i2c, unsigned int id);
       virtual ~IORelayCard(void);
 
     public:
@@ -21,6 +22,7 @@ namespace BiosHomeAutomator {
       std::vector<Input*> get_changed_inputs(void);
 
     private:
+      void initialize_hardware(void);
       void initialize_inputs(void);
       void update_inputs(void);
       Input::State determine_input_state(unsigned int portState, unsigned int inputId);
