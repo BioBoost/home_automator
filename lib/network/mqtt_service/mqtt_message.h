@@ -8,7 +8,7 @@ namespace BiosHomeAutomator {
 
     public:
       MQTTMessage(void);
-      MQTTMessage(std::string topic, std::string message);
+      MQTTMessage(std::string message, std::string topic);
       virtual ~MQTTMessage(void);
 
     public:
