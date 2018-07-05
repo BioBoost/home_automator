@@ -2,6 +2,8 @@
 
 namespace BiosHomeAutomator {
 
+  unsigned int MQTTMessage::i = 0;
+
   MQTTMessage::MQTTMessage(void)
     : MQTTMessage("", "") {
   }
@@ -27,6 +29,10 @@ namespace BiosHomeAutomator {
 
   void MQTTMessage::set_topic(std::string topic) {
     this->topic = topic;
+  }
+
+  std::string MQTTMessage::to_string(void) {
+    return message + " @ " + topic;
   }
 
 };

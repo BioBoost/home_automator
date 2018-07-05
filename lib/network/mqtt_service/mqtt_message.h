@@ -19,6 +19,9 @@ namespace BiosHomeAutomator {
       void set_message(std::string message);
       void set_topic(std::string topic);
 
+    public:
+      std::string to_string(void);
+
     private:
       std::string topic;
       std::string message;
