@@ -2,8 +2,6 @@
 
 namespace BiosHomeAutomator {
 
-  unsigned int MQTTMessage::i = 0;
-
   MQTTMessage::MQTTMessage(void)
     : MQTTMessage("", "") {
   }
