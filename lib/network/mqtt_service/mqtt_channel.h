@@ -3,9 +3,9 @@
 #include "mbed.h"
 #include <string>
 #include <EthernetInterface.h>
-#include "mqtt_network.h"
 #include "MQTTmbed.h"
 #include "MQTTClient.h"
+#include "MQTTSocket.h"
 #include "mqtt_message.h"
 
 namespace BiosHomeAutomator {
@@ -27,12 +27,12 @@ namespace BiosHomeAutomator {
 
     private:
       static const unsigned int SIZE_OF_PUBLISHER_MAIL = 8;
-      static const unsigned int MS_TO_WAIT_FOR_MAILBOX = 10;
+      static const unsigned int MS_TO_WAIT_FOR_MAILBOX = 50;
       static const MQTT::QoS DEFAULT_QOS = MQTT::QOS2;
       static const unsigned int MAX_MESSAGE_SIZE = 256;
-      static const unsigned int MS_FOR_CLIENT_TO_YIELD = 50;
-      MQTTNetwork mqttNetwork;
-      MQTT::Client<MQTTNetwork, Countdown> * client;
+      static const unsigned int MS_FOR_CLIENT_TO_YIELD = 100;
+      MQTTSocket mqttSocket;
+      MQTT::Client<MQTTSocket, Countdown> * client;
 
       // Threading stuff
       Thread publisherThread;

@@ -7,11 +7,11 @@
 namespace BiosHomeAutomator {
 
   MQTTChannel::MQTTChannel(EthernetInterface * ethernet, std::string broker, std::string clientId, unsigned int port)
-    : mqttNetwork(ethernet) {
+    : mqttSocket(ethernet) {
 
-    client = new MQTT::Client<MQTTNetwork, Countdown>(mqttNetwork);
+    client = new MQTT::Client<MQTTSocket, Countdown>(mqttSocket);
  
-    if (mqttNetwork.connect(broker.c_str(), port)) {
+    if (mqttSocket.connect((char*)broker.c_str(), port)) {
 #ifdef DO_SIMPLE_LOG
     Log.warning("Connection to MQTT broker failed");
 #endif
@@ -37,7 +37,7 @@ namespace BiosHomeAutomator {
   MQTTChannel::~MQTTChannel(void) {
     stop_publishing_thread();
     client->disconnect();
-    mqttNetwork.disconnect();
+    mqttSocket.disconnect();
     delete client;
   }
 
@@ -46,6 +46,12 @@ namespace BiosHomeAutomator {
   }
 
   void MQTTChannel::publish(MQTTMessage message) {
+    if (publishMailbox.full()) {
+#ifdef DO_SIMPLE_LOG
+      Log.warning("Mailbox for publish messages is full.");
+#endif
+    }
+
     MQTTMessage * mqttMessage = publishMailbox.alloc();
     (*mqttMessage) = message;
 #ifdef DO_SIMPLE_LOG
@@ -70,13 +76,18 @@ namespace BiosHomeAutomator {
 #endif
     while(keepPublishing) {
       // Try to dequeue message
-      osEvent event = publishMailbox.get();
+      osEvent event = publishMailbox.get(MS_TO_WAIT_FOR_MAILBOX);
       if (event.status == osEventMail) {
         MQTTMessage * queueMessage = (MQTTMessage*)event.value.p;
 #ifdef DO_SIMPLE_LOG
         Log.verbose("Dequeuing message " + queueMessage->to_string());
 #endif
         publishMailbox.free(queueMessage);
+      }
+      if (client->yield(100)) {
+#ifdef DO_SIMPLE_LOG
+        Log.warning("No connection to MQTT broker to yield()");
+#endif
       }
     }
 #ifdef DO_SIMPLE_LOG
