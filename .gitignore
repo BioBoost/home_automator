@@ -7,3 +7,8 @@ mbed_settings.py
 .build/
 BUILD/
 .mbed
+
+# Dependencies
+FB/
+MQTTPacket/
+pcf8575/
