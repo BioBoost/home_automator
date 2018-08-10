@@ -12,6 +12,18 @@
             "macro_name": "MQTT_PROCESS_THREAD_STACK_SIZE",
             "required": true,
             "value": "2048"
+        },
+        "short_press_ms": {
+            "help": "Time to be consider a short button press",
+            "macro_name": "SHORT_PRESS_TIME_MS",
+            "required": true,
+            "value": "1000"
+        },
+        "long_press_ms_maximum": {
+            "help": "Max time to be consider a long button press",
+            "macro_name": "MAX_LONG_PRESS_TIME_MS",
+            "required": true,
+            "value": "3000"
         }
     }
 }

@@ -1,6 +1,7 @@
 #include "home_automator.h"
 
 #include "mbed.h"
+#include "mqtt_message_factory.h"
 
 #ifdef DO_SIMPLE_LOG
 #include "logger.h"
@@ -60,7 +61,15 @@ namespace BiosHomeAutomator {
         Log.verbose(inputs[i]->to_string());
 #endif
 
-        mqttChannel->publish("test/hello", inputs[i]->to_string());
+        MQTTMessage * message = MQTTMessageFactory::create_input_state_update(inputs[i]);
+        if (message) {
+          mqttChannel->publish(*message);
+          delete message;
+        } else {
+#ifdef DO_SIMPLE_LOG
+          Log.debug("Not publishing, pressed to long");
+#endif
+        }
       }
     }
   }
