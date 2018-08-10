@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MQTTThreadedClient.h"
+#include "mqtt_message.h"
 
 namespace BiosHomeAutomator {
 
@@ -12,6 +13,7 @@ namespace BiosHomeAutomator {
 
     public:
       void publish(std::string topic, std::string message);
+      void publish(MQTTMessage message);
 
     private:
       void init_mqtt_connection(std::string serverAddress, unsigned int port);

@@ -53,4 +53,8 @@ namespace BiosHomeAutomator {
 #endif
   }
 
+  void MQTTChannel::publish(MQTTMessage message) {
+    publish(message.get_topic(), message.get_message());
+  }
+
 };
