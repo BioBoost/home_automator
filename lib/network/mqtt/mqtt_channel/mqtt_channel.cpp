@@ -49,7 +49,7 @@ namespace BiosHomeAutomator {
     messageToPublish.payloadlen = message.length();
     mqttClient.publish(messageToPublish);
 #ifdef DO_SIMPLE_LOG
-    Log.debug("Publishing message " + message + " @ " + topic);
+    Log.debug("Publishing '" + message + "' @ " + topic);
 #endif
   }
 
