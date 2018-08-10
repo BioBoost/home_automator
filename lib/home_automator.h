@@ -2,13 +2,14 @@
 
 #include <vector>
 #include "io_relay_card.h"
+#include "mqtt_channel.h"
 
 namespace BiosHomeAutomator {
 
   class HomeAutomator {
 
     public:
-      HomeAutomator(I2C * i2c);
+      HomeAutomator(I2C * i2c, MQTTChannel * mqttChannel);
       virtual ~HomeAutomator(void);
     
     public:
@@ -21,6 +22,7 @@ namespace BiosHomeAutomator {
     private:
       I2C * i2c;
       std::vector<IORelayCard *> relayCards;
+      MQTTChannel * mqttChannel;
 
       // Interrupt stuff
       static const unsigned int QUEUE_SIZE = 12;

@@ -8,13 +8,15 @@
 
 namespace BiosHomeAutomator {
 
-  HomeAutomator::HomeAutomator(I2C * i2c)
+  HomeAutomator::HomeAutomator(I2C * i2c, MQTTChannel * mqttChannel)
     : interrupt(IO_INTERRUPT_PIN), queue(QUEUE_SIZE * EVENTS_EVENT_SIZE) {
 #ifdef DO_SIMPLE_LOG
     Log.info("Initializing HomeAutomator");
 #endif
     this->i2c = i2c;
     setup_isr();
+    this->mqttChannel = mqttChannel;
+    //this->mqttChannel->subscribe("home/cards/+/relays/+/set", this);
   }
 
   void HomeAutomator::setup_isr(void) {
@@ -57,6 +59,8 @@ namespace BiosHomeAutomator {
 #ifdef DO_SIMPLE_LOG
         Log.verbose(inputs[i]->to_string());
 #endif
+
+        mqttChannel->publish("test/hello", inputs[i]->to_string());
       }
     }
   }
