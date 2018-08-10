@@ -6,6 +6,12 @@
             "macro_name": "IO_INTERRUPT_PIN",
             "required": true,
             "value": "PTC0"
+        },
+        "mqtt_process_thread_stack_size": {
+            "help": "Stack size of MQTT processing thread",
+            "macro_name": "MQTT_PROCESS_THREAD_STACK_SIZE",
+            "required": true,
+            "value": "2048"
         }
     }
 }
