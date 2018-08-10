@@ -10,7 +10,7 @@ namespace BiosHomeAutomator {
 
     public:
       static MQTTMessage * create_input_state_update(Input * input) {
-        std::string topic = "test/home/cards/" + std::to_string(input->get_parent()->get_id())
+        std::string topic = MQTT_CARD_TOPIC_BASE + std::to_string(input->get_parent()->get_id())
           + "/inputs/" + std::to_string(input->get_id());
 
         std::string payload = "";

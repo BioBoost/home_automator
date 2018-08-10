@@ -24,6 +24,12 @@
             "macro_name": "MAX_LONG_PRESS_TIME_MS",
             "required": true,
             "value": "3000"
+        },
+        "mqtt_card_topic_base": {
+            "help": "Base topic for expansion card events",
+            "macro_name": "MQTT_CARD_TOPIC_BASE",
+            "required": true,
+            "value": "\"test/home/cards/\""
         }
     }
 }
