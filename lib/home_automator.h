@@ -18,6 +18,7 @@ namespace BiosHomeAutomator {
     private:
       void setup_isr(void);
       void process_changed_inputs(void);
+      void handle_mqtt_message(MQTT::MessageData& messageData);
 
     private:
       I2C * i2c;

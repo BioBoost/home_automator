@@ -17,7 +17,11 @@ namespace BiosHomeAutomator {
     this->i2c = i2c;
     setup_isr();
     this->mqttChannel = mqttChannel;
-    //this->mqttChannel->subscribe("home/cards/+/relays/+/set", this);
+    this->mqttChannel->subscribe("test/home/cards/+/relays/+/set", this, &HomeAutomator::handle_mqtt_message);
+#ifdef DO_SIMPLE_LOG
+    Log.warning("Setting default topic handler because MQTTThreadedClient does not handle wildcards well");
+#endif
+    this->mqttChannel->set_default_topic_handler(this, &HomeAutomator::handle_mqtt_message);
   }
 
   void HomeAutomator::setup_isr(void) {
@@ -74,5 +78,19 @@ namespace BiosHomeAutomator {
     }
   }
 
+  void HomeAutomator::handle_mqtt_message(MQTT::MessageData& messageData) {
+      std::string payload((char*)messageData.message.payload);
+
+      std::string topic;
+      if (messageData.topicName.lenstring.len > 0) {
+        topic = std::string((const char *) messageData.topicName.lenstring.data, (size_t) messageData.topicName.lenstring.len);
+      } else {
+        topic = (const char *) messageData.topicName.cstring;
+      }
+
+#ifdef DO_SIMPLE_LOG
+      Log.verbose("Handling received message: " + payload + "@ '" + topic + "'");
+#endif
+  }
 
 };
