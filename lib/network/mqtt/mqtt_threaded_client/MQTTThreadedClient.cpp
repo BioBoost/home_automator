@@ -748,6 +748,10 @@ int MQTTThreadedClient::handlePublishMsg()
 
     
     // Call the handlers for each topic 
+    // This needs to be refactored as it will not match with # and + topic parts.
+    // While we can perfectly subcribe to test/hello/# or test/+/world, received messages
+    // will not be mapped
+    // Current workaround is a default handler in case no match is found.
     if (topicCBMap.find(topic) != topicCBMap.end())
     {
         // Call the callback function 
@@ -759,6 +763,11 @@ int MQTTThreadedClient::handlePublishMsg()
             
             return 1;
         }
+    } else {
+      DBG("No match - Invoking default handler for topic ...\r\n");
+      MessageData md(topicName, msg);
+      defaultHandler(md);
+      return 1;
     }
     
     // TODO: depending on the QoS

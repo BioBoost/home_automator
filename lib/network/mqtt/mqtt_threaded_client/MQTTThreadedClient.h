@@ -131,6 +131,12 @@ public:
 
         topicCBMap.insert(std::pair<std::string, FP<void,MessageData &> >(std::string(topic),fp));  
     }
+
+    template<typename T>
+    void setDefaultTopicHandler(T *object, void (T::*member)(MessageData &))
+    {
+        defaultHandler.attach(object, member);
+    }
     
     // TODO: Add unsubscribe functionality.
     
@@ -169,6 +175,7 @@ private:
     // In the future, use a vector instead of maps to allow multiple
     // handlers for the same topic.
     std::map<std::string, FP<void, MessageData &> > topicCBMap;
+    FP<void, MessageData &> defaultHandler;
     
     unsigned char sendbuf[MAX_MQTT_PACKET_SIZE];
     unsigned char readbuf[MAX_MQTT_PACKET_SIZE];
