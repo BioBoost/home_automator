@@ -2,6 +2,7 @@
 
 #include "mbed.h"
 #include "mqtt_message_factory.h"
+#include "event_factory.h"
 
 #ifdef DO_SIMPLE_LOG
 #include "logger.h"
@@ -17,7 +18,7 @@ namespace BiosHomeAutomator {
     this->i2c = i2c;
     setup_isr();
     this->mqttChannel = mqttChannel;
-    this->mqttChannel->subscribe("test/home/cards/+/relays/+/set", this, &HomeAutomator::handle_mqtt_message);
+    this->mqttChannel->subscribe(MQTT_CARD_SUBSCRIBE_TOPIC, this, &HomeAutomator::handle_mqtt_message);
 #ifdef DO_SIMPLE_LOG
     Log.warning("Setting default topic handler because MQTTThreadedClient does not handle wildcards well");
 #endif
@@ -91,6 +92,22 @@ namespace BiosHomeAutomator {
 #ifdef DO_SIMPLE_LOG
       Log.verbose("Handling received message: " + payload + "@ '" + topic + "'");
 #endif
+
+    MQTTMessage mqttMessage(topic, payload);
+    CardEvent * event = EventFactory::create_event_from_mqtt_message(mqttMessage);
+    if (event) {
+      process_event(event);
+    }
+    delete event;
+  }
+
+  void HomeAutomator::process_event(CardEvent * event) {
+    for (unsigned int i = 0; i < relayCards.size(); i++) {
+      if (relayCards[i]->get_id() == event->get_expansion_card_id()) {
+        event->apply_event_on(relayCards[i]);
+        return;
+      }
+    }
   }
 
 };

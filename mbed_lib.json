@@ -29,7 +29,13 @@
             "help": "Base topic for expansion card events",
             "macro_name": "MQTT_CARD_TOPIC_BASE",
             "required": true,
-            "value": "\"test/home/cards/\""
+            "value": "\"home/cards/\""
+        },
+        "mqtt_card_subscribe_topic": {
+            "help": "Topic to subscribe to for expansion card events",
+            "macro_name": "MQTT_CARD_SUBSCRIBE_TOPIC",
+            "required": true,
+            "value": "\"home/cards/+/relays/+/set\""
         }
     }
 }

@@ -3,6 +3,7 @@
 #include <vector>
 #include "io_relay_card.h"
 #include "mqtt_channel.h"
+#include "card_event.h"
 
 namespace BiosHomeAutomator {
 
@@ -19,6 +20,7 @@ namespace BiosHomeAutomator {
       void setup_isr(void);
       void process_changed_inputs(void);
       void handle_mqtt_message(MQTT::MessageData& messageData);
+      void process_event(CardEvent * event);
 
     private:
       I2C * i2c;
