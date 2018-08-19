@@ -1,11 +1,5 @@
 #include "mqtt_channel.h"
-// #include <cstdio>
-// #include <cstring>
 #include "mbed.h"
-
-#ifdef DO_SIMPLE_LOG
-#include "logger.h"
-#endif
 
 namespace BiosHomeAutomator {
 
