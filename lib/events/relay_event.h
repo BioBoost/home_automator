@@ -2,10 +2,7 @@
 
 #include "card_event.h"
 #include "io_relay_card.h"
-
-#ifdef DO_SIMPLE_LOG
-#include "logger.h"
-#endif
+#include "simple_logger.h"
 
 namespace BiosHomeAutomator {
 
@@ -41,11 +38,8 @@ namespace BiosHomeAutomator {
               break;
           }
         } else {
-#ifdef DO_SIMPLE_LOG
-          Log.warning("Trying to apply event on wrong expansion card");
-#endif
+          warning("Trying to apply event on wrong expansion card");
         }
-        
       }
 
     private:

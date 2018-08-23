@@ -24,9 +24,7 @@ namespace BiosHomeAutomator {
   }
 
   void MQTTChannel::start_processing_thread(void) {
-    #ifdef DO_SIMPLE_LOG
-        Log.info("Starting publisher thread");
-    #endif
+    info("Starting publisher thread");
     mqttProcessingThread.start(mbed::callback(&mqttClient, &MQTT::MQTTThreadedClient::startListener));
   }
 
@@ -42,9 +40,7 @@ namespace BiosHomeAutomator {
     strcpy(&messageToPublish.payload[0], message.c_str());
     messageToPublish.payloadlen = message.length();
     mqttClient.publish(messageToPublish);
-#ifdef DO_SIMPLE_LOG
-    Log.debug("Publishing '" + message + "' @ " + topic);
-#endif
+    debug("Publishing '" + message + "' @ " + topic);
   }
 
   void MQTTChannel::publish(MQTTMessage message) {

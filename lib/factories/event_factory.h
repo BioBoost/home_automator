@@ -4,10 +4,7 @@
 #include "mqtt_message.h"
 #include "string_splitter.h"
 #include "relay_event.h"
-
-#ifdef DO_SIMPLE_LOG
-#include "logger.h"
-#endif
+#include "simple_logger.h"
 
 namespace BiosHomeAutomator {
 
@@ -36,16 +33,12 @@ namespace BiosHomeAutomator {
           } else if (payload == "TOGGLE") {
             eventType = TOGGLE;
           } else {
-#ifdef DO_SIMPLE_LOG
-            Log.warning("Unknown event type in MQTT message: " + payload);
-#endif
+            warning("Unknown event type in MQTT message: " + payload);
             return nullptr;
           }
           event = new RelayEvent(cardId, relayId, eventType);
         } else {
-#ifdef DO_SIMPLE_LOG
-          Log.warning("Missing event topic parts in MQTT message: " + topic);
-#endif
+          warning("Missing event topic parts in MQTT message: " + topic);
         }
 
         return event;

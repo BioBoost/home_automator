@@ -14,19 +14,13 @@ You will need to enable C++11 compilation. This can be achieved by changing the 
 
 ## Logging
 
-If you wish to enable logging you will need to activate it through the `mbed_lib.json` file found in this library. Just add the `DO_SIMPLE_LOG` macro as shown below.
+If you wish to enable logging you will need to activate it through the `mbed_lib.json` file found in this library. Just add the `ENABLE_SIMPLE_LOGGER` macro as shown below.
 
 ```json
 {
     "name": "home_automator",
-    "macros": ["DO_SIMPLE_LOG"]
+    "macros": ["ENABLE_SIMPLE_LOGGER"]
 }
-```
-
-In that case you will also need to add [Simple Logger](https://github.com/BioBoost/simple_logger) as a library:
-
-```shell
-mbed add https://github.com/BioBoost/simple_logger
 ```
 
 Make sure to setup a logger as the default logging mechanism throws all messages away.

@@ -2,10 +2,7 @@
 
 #include "MQTTThreadedClient.h"
 #include "mqtt_message.h"
-
-#ifdef DO_SIMPLE_LOG
-#include "logger.h"
-#endif
+#include "simple_logger.h"
 
 namespace BiosHomeAutomator {
 
@@ -21,17 +18,13 @@ namespace BiosHomeAutomator {
 
     template<typename T>
     void subscribe(std::string topic, T *object, void (T::*member)(MQTT::MessageData &)) {
-#ifdef DO_SIMPLE_LOG
-        Log.verbose("Subscribing to topic " + topic);
-#endif
+        verbose("Subscribing to topic " + topic);
         mqttClient.addTopicHandler(topic.c_str(), object, member);
     }
 
     template<typename T>
     void set_default_topic_handler(T *object, void (T::*member)(MQTT::MessageData &)) {
-#ifdef DO_SIMPLE_LOG
-        Log.verbose("Setting default topic handler");
-#endif
+        verbose("Setting default topic handler");
         mqttClient.setDefaultTopicHandler(object, member);
     }
 
