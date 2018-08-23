@@ -484,6 +484,9 @@ int MQTTThreadedClient::login()
     {
         DBG("Connected!!! ... starting connection timers ...\r\n");
         resetConnectionTimer();
+        if (onConnected) {
+          onConnected();
+        }
     }
     
     DBG("Returning with rc = %d\r\n", rc);
@@ -933,6 +936,9 @@ void MQTTThreadedClient::startListener()
 reconnect:
         // reconnect?
         DBG("Client disconnected!! ... retrying ...\r\n");
+        if (onDisconnect) {
+          onDisconnect();
+        }
         disconnect();
         
     };
