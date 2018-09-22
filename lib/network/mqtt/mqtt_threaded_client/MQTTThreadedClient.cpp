@@ -821,6 +821,8 @@ void MQTTThreadedClient::sendPingRequest()
     if (len > 0 && (sendPacket(len) == SUCCESS)) // send the ping packet
     {
         DBG("Ping request sent successfully ...\r\n");
+    } else {
+        DBG("Failed to send ping request\r\n");
     }
 }
 
@@ -895,6 +897,9 @@ void MQTTThreadedClient::startListener()
                         resetConnectionTimer();
                     }
                     break;
+                case NSAPI_ERROR_NO_CONNECTION:   // pType = nsapi_error (mbed os)
+                    goto reconnect;
+
                 default:
                     DBG("Unknown/Not handled message from server pType[%d]\r\n", pType);
             }
