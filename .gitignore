@@ -9,7 +9,7 @@ BUILD/
 .mbed
 
 # Dependencies
-FB/
+FP/
 MQTTPacket/
 pcf8575/
 simple_logger/
