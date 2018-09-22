@@ -6,6 +6,17 @@
 
 namespace BiosHomeAutomator {
 
+  class ConnectionHandler {
+
+    public:
+      void disconnect_handler(void) {
+        warning("Lost connection to mqtt broker - inside handler");
+      }
+      void connected_handler(void) {
+        info("MQTT connected - inside handler");
+      }
+  };
+
   class MQTTChannel {
 
     public:
@@ -38,6 +49,7 @@ namespace BiosHomeAutomator {
       char clientId[100];
       Thread mqttProcessingThread;
       int messageId;
+      ConnectionHandler connectionHandler;
   };
 
 };
