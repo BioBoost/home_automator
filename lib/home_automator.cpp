@@ -66,7 +66,7 @@ namespace BiosHomeAutomator {
   }
 
   void HomeAutomator::handle_mqtt_message(MQTT::MessageData& messageData) {
-    std::string payload((char*)messageData.message.payload);
+    std::string payload((char*)messageData.message.payload, (size_t) messageData.message.payloadlen);
 
     std::string topic;
     if (messageData.topicName.lenstring.len > 0) {
