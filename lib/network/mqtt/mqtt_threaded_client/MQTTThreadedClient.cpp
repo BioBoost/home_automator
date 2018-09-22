@@ -941,9 +941,6 @@ void MQTTThreadedClient::startListener()
 reconnect:
         // reconnect?
         DBG("Client disconnected!! ... retrying ...\r\n");
-        if (onDisconnect) {
-          onDisconnect();
-        }
         disconnect();
         
     };

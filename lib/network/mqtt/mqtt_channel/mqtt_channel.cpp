@@ -10,6 +10,8 @@ namespace BiosHomeAutomator {
       this->messageId = 0;
       init_mqtt_connection(serverAddress, port);
       start_processing_thread();
+      
+      mqttClient.on_connected(callback(&connectionHandler, &ConnectionHandler::connected_handler));
   }
 
   MQTTChannel::~MQTTChannel(void) {

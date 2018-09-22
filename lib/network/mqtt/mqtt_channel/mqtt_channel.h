@@ -6,6 +6,13 @@
 
 namespace BiosHomeAutomator {
 
+  class ConnectionHandler {
+     public:
+      void connected_handler(void) {
+        info("MQTT connected - inside handler");
+      }
+  };
+
   class MQTTChannel {
 
     public:
@@ -38,6 +45,7 @@ namespace BiosHomeAutomator {
       char clientId[100];
       Thread mqttProcessingThread;
       int messageId;
+      ConnectionHandler connectionHandler;
   };
 
 };

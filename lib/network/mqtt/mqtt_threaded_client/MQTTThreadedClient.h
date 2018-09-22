@@ -153,9 +153,6 @@ protected:
     int connect();      
 
 public:   // Register callbacks
-    void on_disconnect(Callback<void(void)> callback) {
-      onDisconnect = callback;
-    }
     void on_connected(Callback<void(void)> callback) {
       onConnected = callback;
     }
@@ -192,7 +189,6 @@ private:
     Timer comTimer;
 
     // Callbacks
-    Callback<void(void)> onDisconnect;
     Callback<void(void)> onConnected;
 
     // SSL/TLS functions
