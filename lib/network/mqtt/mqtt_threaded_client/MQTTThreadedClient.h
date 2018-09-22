@@ -8,7 +8,7 @@
 #include "NetworkInterface.h"
 #include "FP.h"
 
-#define MQTT_DEBUG 1
+//#define MQTT_DEBUG 1
 
 #ifdef MQTT_DEBUG
 #define DBG(fmt, args...)    printf(fmt, ## args)

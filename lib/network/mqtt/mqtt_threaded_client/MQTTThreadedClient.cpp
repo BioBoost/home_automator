@@ -497,9 +497,6 @@ int MQTTThreadedClient::login()
 
 void MQTTThreadedClient::disconnect()
 {
-    if (onDisconnect) {
-      onDisconnect();
-    }
     if (isConnected)
     {
         if( useTLS 
@@ -824,8 +821,6 @@ void MQTTThreadedClient::sendPingRequest()
     if (len > 0 && (sendPacket(len) == SUCCESS)) // send the ping packet
     {
         DBG("Ping request sent successfully ...\r\n");
-    } else {
-        DBG("Failed to send ping request ...\r\n");
     }
 }
 
@@ -941,6 +936,9 @@ void MQTTThreadedClient::startListener()
 reconnect:
         // reconnect?
         DBG("Client disconnected!! ... retrying ...\r\n");
+        if (onDisconnect) {
+          onDisconnect();
+        }
         disconnect();
         
     };
