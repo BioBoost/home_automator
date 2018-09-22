@@ -17,10 +17,11 @@ namespace BiosHomeAutomator {
   }
 
   void MQTTChannel::init_mqtt_connection(std::string serverAddress, unsigned int port) {
-      MQTTPacket_connectData logindata = MQTTPacket_connectData_initializer;
-      logindata.MQTTVersion = 3;
-      logindata.clientID.cstring = this->clientId;
-      mqttClient.setConnectionParameters(serverAddress.c_str(), port, logindata);
+    MQTTPacket_connectData connectionOptions = MQTTPacket_connectData_initializer;
+    connectionOptions.MQTTVersion = 3;
+    connectionOptions.clientID.cstring = this->clientId;
+    connectionOptions.keepAliveInterval = 30;   // Needs a refactor !!!
+    mqttClient.setConnectionParameters(serverAddress.c_str(), port, connectionOptions);
   }
 
   void MQTTChannel::start_processing_thread(void) {
