@@ -75,7 +75,7 @@ namespace BiosHomeAutomator {
       topic = (const char *) messageData.topicName.cstring;
     }
 
-    verbose("Handling received message: " + payload + "@ '" + topic + "'");
+    verbose("Handling received message: " + payload + " @ '" + topic + "'");
 
     MQTTMessage mqttMessage(topic, payload);
     CardEvent * event = EventFactory::create_event_from_mqtt_message(mqttMessage);
